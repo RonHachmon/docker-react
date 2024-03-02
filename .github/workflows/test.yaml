@@ -1,13 +1,13 @@
-name: Test app
+name: Test App
 on: pull_request
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: login to docker
       - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
       - name: build docker
       - run: docker build -t cygnetops/react-test -f dockerfile.dev .
       - name: run tests
-      - run: docker run -e CI=true cygnetops/react-test npm test
+      - run: docker run -e CI=true cygnetops/react-test npm testgit
