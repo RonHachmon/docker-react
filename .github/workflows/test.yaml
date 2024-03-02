@@ -10,4 +10,4 @@ jobs:
       - name: build docker
       - run: docker build -t cygnetops/react-test -f dockerfile.dev .
       - name: run tests
-      - run: docker run -e CI=true cygnetops/react-test npm testgit
+      - run: docker run -e CI=true cygnetops/react-test npm run test
