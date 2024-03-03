@@ -1,4 +1,4 @@
-name: Test App
+name: ci-react-app-test
 
 on:
   pull_request:
@@ -10,10 +10,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4 
       - name: login to docker
-      - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_TOKEN }}
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
       - name: build docker
-      - run: docker build -t cygnetops/react-test -f dockerfile.dev .
+        run: docker build -t cygnetops/react-test -f dockerfile.dev .
       - name: run tests
-      - run: docker run -e CI=true cygnetops/react-test npm run test
+        run: docker run -e CI=true cygnetops/react-test npm run test
